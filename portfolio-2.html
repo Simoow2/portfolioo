@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Simo — Engineering Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Outfit',sans-serif;background:#F5F3EE;color:#1C1C1A;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+:root{
+  --bg:#F5F3EE;--surface:#FFFFFF;--ink:#1C1C1A;--muted:#7A7972;--rule:#E4E1D9;
+  --navy:#1B2B4B;--navy-mid:#2E4A7A;--gold:#C9A84C;--gold-lt:#F0DFA0;--tag:#EAE8E2
+}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;height:66px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(1.5rem,6vw,5rem);
+  background:rgba(245,243,238,0.92);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--rule);transition:box-shadow .3s
+}
+nav.scrolled{box-shadow:0 2px 24px rgba(0,0,0,.07)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--navy);text-decoration:none}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:2.25rem;list-style:none}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:.82rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--navy)}
+.nav-cta{background:var(--navy)!important;color:#fff!important;padding:.45rem 1.2rem;border-radius:6px}
+.nav-cta:hover{background:var(--navy-mid)!important}
+
+/* HERO */
+#hero{
+  min-height:100vh;display:grid;grid-template-columns:1fr 480px;
+  padding-top:66px;position:relative;overflow:hidden
+}
+#hero::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:560px;height:560px;
+  background:radial-gradient(circle,rgba(201,168,76,.13) 0%,transparent 68%);
+  border-radius:50%;pointer-events:none
+}
+.hero-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:clamp(3rem,8vw,7rem) clamp(1.5rem,6vw,5rem);
+  padding-right:3rem;position:relative;z-index:1
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:1.5rem
+}
+.hero-eyebrow::before{content:'';display:block;width:28px;height:1.5px;background:var(--gold)}
+h1.hero-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3.5rem,7vw,5.75rem);font-weight:600;
+  line-height:1.0;letter-spacing:-.03em;color:var(--ink);margin-bottom:.4rem
+}
+h1.hero-name em{font-style:italic;color:var(--navy)}
+.hero-title{font-size:clamp(.95rem,1.6vw,1.15rem);color:var(--muted);font-weight:400;margin-bottom:2rem}
+.hero-desc{font-size:1.05rem;color:#4A4A46;line-height:1.8;max-width:52ch;margin-bottom:3rem}
+.hero-buttons{display:flex;gap:1rem;flex-wrap:wrap}
+
+/* BUTTONS */
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.85rem 2rem;border-radius:8px;
+  font-family:'Outfit',sans-serif;font-size:.88rem;font-weight:600;
+  text-decoration:none;cursor:pointer;border:none;
+  transition:all .22s cubic-bezier(.4,0,.2,1);white-space:nowrap
+}
+.btn-navy{background:var(--navy);color:#fff;box-shadow:0 2px 12px rgba(27,43,75,.25)}
+.btn-navy:hover{background:#243a65;transform:translateY(-2px);box-shadow:0 6px 24px rgba(27,43,75,.35)}
+.btn-ghost{background:transparent;color:var(--navy);border:1.5px solid var(--navy)}
+.btn-ghost:hover{background:var(--navy);color:#fff;transform:translateY(-2px)}
+.btn-gold{background:var(--gold);color:#fff;box-shadow:0 2px 12px rgba(201,168,76,.35)}
+.btn-gold:hover{background:#b8963f;transform:translateY(-2px);box-shadow:0 6px 20px rgba(201,168,76,.45)}
+
+/* HERO RIGHT */
+.hero-right{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,#1B2B4B 0%,#243a65 100%);overflow:hidden
+}
+.hero-right::before{
+  content:'';position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.04) 39px,rgba(255,255,255,.04) 40px),
+    repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.04) 39px,rgba(255,255,255,.04) 40px)
+}
+.photo-wrap{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:1.5rem}
+.photo-container{
+  width:260px;height:260px;border-radius:50%;
+  border:3px solid rgba(201,168,76,.6);
+  box-shadow:0 0 0 12px rgba(201,168,76,.1),0 24px 60px rgba(0,0,0,.4);
+  overflow:hidden;cursor:pointer;transition:transform .3s
+}
+.photo-container:hover{transform:scale(1.03)}
+.photo-placeholder{
+  width:100%;height:100%;
+  background:linear-gradient(145deg,#243a65,#1B2B4B);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.5rem;color:rgba(255,255,255,.45);
+  font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:1rem
+}
+.photo-hint{
+  font-size:.7rem;color:rgba(255,255,255,.45);
+  text-align:center;letter-spacing:.05em
+}
+.circuit-deco{opacity:.6}
+
+/* SECTION COMMON */
+.section-wrap{max-width:1140px;margin:0 auto;padding:6rem clamp(1.5rem,6vw,4rem)}
+.section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;gap:2rem;flex-wrap:wrap}
+.label-line{
+  display:flex;align-items:center;gap:.75rem;
+  font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:.6rem
+}
+.label-line::after{content:'';flex:1;max-width:40px;height:1px;background:var(--gold);opacity:.6}
+h2.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3rem);font-weight:600;letter-spacing:-.03em;color:var(--ink);line-height:1.1}
+.divider{height:1px;background:var(--rule);margin:0 clamp(1.5rem,6vw,4rem)}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:3fr 2fr;gap:5rem;align-items:start}
+.about-text p{color:#4A4A46;font-size:1.05rem;line-height:1.8;margin-bottom:1.5rem}
+.about-text p strong{color:var(--ink);font-weight:600}
+.edu-timeline{margin-top:2.5rem}
+.edu-item{display:flex;gap:1.25rem;margin-bottom:1.5rem;position:relative}
+.edu-item::before{content:'';position:absolute;left:18px;top:36px;bottom:-1.5rem;width:1px;background:var(--rule)}
+.edu-item:last-child::before{display:none}
+.edu-dot{width:36px;height:36px;border-radius:50%;background:var(--surface);border:2px solid var(--navy);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.edu-body strong{display:block;font-size:.95rem;color:var(--ink)}
+.edu-body span{font-size:.82rem;color:var(--muted)}
+
+/* CONTACT CARD */
+.contact-card{background:var(--navy);border-radius:16px;padding:2.25rem;color:#fff;box-shadow:0 8px 40px rgba(27,43,75,.2)}
+.contact-card h3{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;margin-bottom:.25rem}
+.contact-card .sub{font-size:.78rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.1em;margin-bottom:1.75rem}
+.contact-field{display:flex;align-items:center;gap:.75rem;padding:.85rem 1rem;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;margin-bottom:.75rem;transition:background .2s}
+.contact-field:hover{background:rgba(255,255,255,.12)}
+.field-icon{width:34px;height:34px;background:rgba(201,168,76,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.field-label{font-size:.68rem;color:rgba(255,255,255,.4);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.1rem}
+.field-value{font-size:.88rem;color:rgba(255,255,255,.9)}
+.field-value.ph{color:rgba(255,255,255,.35);font-style:italic;font-size:.82rem}
+.contact-actions{display:flex;flex-direction:column;gap:.75rem;margin-top:1.5rem}
+.contact-actions .btn{justify-content:center}
+
+/* PROJECTS */
+#projects{background:var(--surface)}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.project-card{
+  background:var(--bg);border:1px solid var(--rule);border-radius:14px;
+  padding:2rem;display:flex;flex-direction:column;
+  transition:all .25s;position:relative;overflow:hidden
+}
+.project-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--navy),var(--gold));
+  transform:scaleX(0);transform-origin:left;transition:transform .3s
+}
+.project-card:hover{border-color:var(--navy-mid);transform:translateY(-5px);box-shadow:0 12px 40px rgba(27,43,75,.12)}
+.project-card:hover::after{transform:scaleX(1)}
+.project-num{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:600;color:var(--rule);line-height:1;margin-bottom:1rem;transition:color .25s}
+.project-card:hover .project-num{color:rgba(27,43,75,.1)}
+.project-icon-badge{
+  width:46px;height:46px;border-radius:12px;
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;margin-bottom:1.25rem;box-shadow:0 4px 12px rgba(27,43,75,.25)
+}
+.project-card h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:var(--ink);margin-bottom:.6rem;letter-spacing:-.02em}
+.project-card p{font-size:.88rem;color:var(--muted);line-height:1.7;flex:1;margin-bottom:1.5rem}
+.project-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.p-tag{font-size:.72rem;font-weight:600;padding:.3rem .75rem;border-radius:100px;background:rgba(27,43,75,.08);color:var(--navy);letter-spacing:.03em}
+
+/* SKILLS */
+#skills{background:var(--bg)}
+.skills-layout{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.skill-block{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:2rem;transition:box-shadow .2s}
+.skill-block:hover{box-shadow:0 4px 24px rgba(0,0,0,.07)}
+.skill-block-header{display:flex;align-items:center;gap:.875rem;margin-bottom:1.5rem}
+.skill-block-icon{width:40px;height:40px;border-radius:10px;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.skill-block-header h3{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--navy)}
+.pills{display:flex;flex-wrap:wrap;gap:.5rem}
+.pill{font-size:.82rem;font-weight:500;padding:.4rem 1rem;border-radius:8px;background:var(--tag);color:var(--ink);border:1px solid var(--rule);transition:all .18s;cursor:default}
+.pill:hover{background:var(--navy);color:#fff;border-color:var(--navy);transform:translateY(-1px)}
+.pill.gold{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.3);color:#8A6B1C}
+.pill.gold:hover{background:var(--gold);color:#fff;border-color:var(--gold)}
+
+/* CONTACT SECTION */
+#contact{background:var(--navy)}
+#contact .label-line{color:var(--gold-lt)}
+#contact .label-line::after{background:var(--gold-lt)}
+#contact h2.section-title{color:#fff}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.contact-intro p{color:rgba(255,255,255,.6);font-size:1.05rem;line-height:1.8;margin-bottom:2rem}
+.contact-links{display:flex;flex-direction:column;gap:1rem}
+.contact-link-btn{
+  display:flex;align-items:center;gap:1rem;
+  padding:1.1rem 1.5rem;background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);border-radius:12px;
+  text-decoration:none;color:#fff;transition:all .22s;cursor:pointer
+}
+.contact-link-btn:hover{background:rgba(255,255,255,.12);border-color:rgba(201,168,76,.5);transform:translateX(4px)}
+.clb-icon{width:42px;height:42px;border-radius:10px;background:rgba(201,168,76,.2);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.clb-text strong{display:block;font-size:.9rem;font-weight:600}
+.clb-text span{font-size:.78rem;color:rgba(255,255,255,.45)}
+.contact-form{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:2rem}
+.contact-form h3{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:#fff;margin-bottom:1.5rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.form-group label{font-size:.72rem;color:rgba(255,255,255,.5);letter-spacing:.08em;text-transform:uppercase}
+.form-group input,.form-group textarea{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+  border-radius:8px;padding:.85rem 1rem;
+  font-family:'Outfit',sans-serif;font-size:.9rem;color:#fff;outline:none;
+  transition:border-color .2s;resize:none
+}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(255,255,255,.25)}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--gold)}
+
+/* FOOTER */
+footer{background:#141e30;text-align:center;padding:2rem;font-size:.8rem;color:rgba(255,255,255,.3)}
+
+/* ANIMATIONS */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.reveal.up{opacity:1;transform:none}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  #hero{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .about-grid{grid-template-columns:1fr}
+  .projects-grid{grid-template-columns:1fr 1fr}
+  .skills-layout{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+@media(max-width:640px){.projects-grid{grid-template-columns:1fr}}
+
+    .photo-container {
+      width: 260px;
+      height: 260px;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+
+    .fixed-profile-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 35%;
+    }
+  
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">S<span>.</span>A</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow reveal">Engineering Student · Morocco 🇲🇦</div>
+    <h1 class="hero-name reveal" style="transition-delay:.1s">
+      MOHAMED<br><em>EL GHANNOUCHI</em>
+    </h1>
+    <p class="hero-title reveal" style="transition-delay:.18s">
+      Embedded Systems · Web & Design · Applied Engineering
+    </p>
+    <p class="hero-desc reveal" style="transition-delay:.26s">
+      Two years of rigorous CPGE preparation at <strong>Salman Al-Farisi, Salé</strong> — covering mathematics, physics, and engineering systems from the ground up. I build things that work: from drone stabilization systems to clean interfaces, from embedded hardware to visual design.
+    </p>
+    <div class="hero-buttons reveal" style="transition-delay:.36s">
+      <a href="#projects" class="btn btn-navy">View My Work →</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      <a href="#" onclick="downloadCV(event)" class="btn btn-gold">↓ Download CV</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+  <div class="photo-wrap">
+    
+    <div class="photo-container">
+      <img class="fixed-profile-img" 
+           src="tswirtii-removebg-preview - Copy.png" 
+           alt="Mohamed El Ghanouchi">
+    </div>
+
+    <p class="photo-hint">⚡ Mohamed El Ghanouchi </p>
+
+  </div>
+</div>
+</section>
+
+<!-- ABOUT -->
+<div class="divider"></div>
+<section id="about" style="background:var(--bg)">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="label-line">Background</div>
+      <h2 class="section-title">About Me</h2>
+    </div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I'm an engineering student who completed two years of intensive <strong>CPGE preparation at Salman Al-Farisi, Salé</strong> — one of Morocco's most rigorous academic tracks, covering applied mathematics, mechanics, electromagnetism, and computer science.</p>
+      <p>My work lives at the intersection of <strong>embedded systems, software, and visual design</strong>. I like understanding things from first principles — whether that's a PID controller stabilizing a drone or a layout that makes information feel effortless to navigate.</p>
+      <p>Outside of engineering, I work with <strong>Photoshop, video editing, and web technologies</strong> regularly. I believe good engineers communicate their work visually just as well as technically.</p>
+      <div class="edu-timeline">
+        <div class="edu-item reveal">
+          <div class="edu-dot">🎓</div>
+          <div class="edu-body">
+            <strong>CPGE — Salman Al-Farisi, Salé</strong>
+            <span>TSI2 · Filière Généraliste/Informatique · 2 years</span>
+          </div>
+        </div>
+        <div class="edu-item reveal" style="transition-delay:.1s">
+          <div class="edu-dot">🏛</div>
+          <div class="edu-body">
+            <strong>Ibn Tofail University</strong>
+            <span>Engineering Sciences · Current</span>
+          </div>
+        </div>
+        <div class="edu-item reveal" style="transition-delay:.2s">
+          <div class="edu-dot">🌐</div>
+          <div class="edu-body">
+            <strong>Languages</strong>
+            <span>Arabic (Native) · French (Professional) · English (Fluent)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-card reveal" style="transition-delay:.15s">
+      <h3>MOHAMED EL GHANNOUCHI</h3>
+      <p class="sub">Engineering Student · Morocco</p>
+      <div class="contact-field">
+        <div class="field-icon">📞</div>
+        <div>
+          <div class="field-label">Phone</div>
+          <div class="field-value ph">+212 712298827</div>
+        </div>
+      </div>
+      <div class="contact-field">
+        <div class="field-icon">✉️</div>
+        <div>
+          <div class="field-label">Email</div>
+          <div class="field-value ph">mohammedelghannouchi@gmail.com</div>
+        </div>
+      </div>
+      <div class="contact-field">
+        <div class="field-icon">📍</div>
+        <div>
+          <div class="field-label">Location</div>
+          <div class="field-value">Morocco 🇲🇦</div>
+        </div>
+      </div>
+      <div class="contact-field">
+        <div class="field-icon">🔗</div>
+        <div>
+          <div class="field-label">LinkedIn</div>
+          <div class="field-value ph">https://www.linkedin.com/in/mohamed-el-ghannouchi-8670503bb/</div>
+        </div>
+      </div>
+      <div class="contact-field">
+        <div class="field-icon">💻</div>
+        <div>
+          <div class="field-label">GitHub</div>
+          <div class="field-value ph">https://github.com/Simoow2</div>
+        </div>
+      </div>
+      <div class="contact-actions">
+        <a href="mailto:mohammedelghannouchi@gmail.com" class="btn btn-gold">✉ Send Email</a>
+        <a href="https://www.linkedin.com/in/mohamed-el-ghannouchi-8670503bb/" target="_blank" class="btn btn-ghost" style="border-color:rgba(255,255,255,.3);color:#fff">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- PROJECTS -->
+<div class="divider"></div>
+<section id="projects">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="label-line">Portfolio</div>
+      <h2 class="section-title">Selected Projects</h2>
+    </div>
+    <a href="https://github.com/yourusername" target="_blank" class="btn btn-ghost" style="font-size:.82rem;padding:.65rem 1.4rem">All on GitHub ↗</a>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-num">01</div>
+      <div class="project-icon-badge">🚁</div>
+      <h3>Quadrotor Drone Stabilization</h3>
+      <p>TIPE research & implementation project. Modeled quadrotor dynamics, designed and tuned PID controllers in MATLAB/Simulink, and implemented physical control loops on Arduino hardware. Presented as a 32-slide formal thesis.</p>
+      <div class="project-tags">
+        <span class="p-tag">PID Control</span>
+        <span class="p-tag">MATLAB</span>
+        <span class="p-tag">Simulink</span>
+        <span class="p-tag">Arduino</span>
+        <span class="p-tag">Dynamics</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal" style="transition-delay:.1s">
+      <div class="project-icon-badge" style="margin-top:4.5rem">☀️</div>
+      <div class="project-num" style="position:absolute;top:2rem;right:2rem;font-size:3.5rem;color:var(--rule)">02</div>
+      <h3>Solar Wireless Charging Station</h3>
+      <p>Engineering concept for a solar-powered wireless EV charging station. Covered energy harvesting, inductive power transfer principles, microcontroller-based regulation, and embedded system architecture.</p>
+      <div class="project-tags">
+        <span class="p-tag">Embedded Systems</span>
+        <span class="p-tag">Power Electronics</span>
+        <span class="p-tag">Microcontrollers</span>
+        <span class="p-tag">Solar Energy</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal" style="transition-delay:.2s">
+      <div class="project-num">03</div>
+      <div class="project-icon-badge">🎨</div>
+      <h3>Web & Visual Design Projects</h3>
+      <p>Various web and digital media work — portfolio sites, interactive UIs, graphic design, and video production. Full workflow from concept to delivery using HTML/CSS, Photoshop, and editing tools.</p>
+      <div class="project-tags">
+        <span class="p-tag">HTML/CSS</span>
+        <span class="p-tag">Photoshop</span>
+        <span class="p-tag">Video Editing</span>
+        <span class="p-tag">UI Design</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- SKILLS -->
+<div class="divider"></div>
+<section id="skills">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="label-line">Expertise</div>
+      <h2 class="section-title">Skills & Tools</h2>
+    </div>
+  </div>
+  <div class="skills-layout">
+
+    <div class="skill-block reveal">
+      <div class="skill-block-header">
+        <div class="skill-block-icon">💻</div>
+        <h3>Programming & Web</h3>
+      </div>
+      <div class="pills">
+        <span class="pill gold">Python</span>
+        <span class="pill gold">HTML</span>
+        <span class="pill gold">CSS</span>
+        <span class="pill">JavaScript</span>
+        <span class="pill">SQL</span>
+        <span class="pill">C</span>
+        <span class="pill">MATLAB</span>
+        <span class="pill">Bash</span>
+      </div>
+    </div>
+
+    <div class="skill-block reveal" style="transition-delay:.08s">
+      <div class="skill-block-header">
+        <div class="skill-block-icon">⚙️</div>
+        <h3>Embedded & Hardware</h3>
+      </div>
+      <div class="pills">
+        <span class="pill gold">Arduino</span>
+        <span class="pill gold">Microcontrollers</span>
+        <span class="pill">MATLAB/Simulink</span>
+        <span class="pill">PID Control</span>
+        <span class="pill">Sensors & Actuators</span>
+        <span class="pill">Circuit Prototyping</span>
+        <span class="pill">Serial Comm.</span>
+      </div>
+    </div>
+
+    <div class="skill-block reveal" style="transition-delay:.14s">
+      <div class="skill-block-header">
+        <div class="skill-block-icon">🎨</div>
+        <h3>Design & Creative</h3>
+      </div>
+      <div class="pills">
+        <span class="pill gold">Photoshop</span>
+        <span class="pill gold">Video Editing</span>
+        <span class="pill gold">UI/UX Design</span>
+        <span class="pill">Montage & Post</span>
+        <span class="pill">Graphic Design</span>
+        <span class="pill">Visual Communication</span>
+        <span class="pill">Content Creation</span>
+      </div>
+    </div>
+
+    <div class="skill-block reveal" style="transition-delay:.2s">
+      <div class="skill-block-header">
+        <div class="skill-block-icon">🔬</div>
+        <h3>Engineering Sciences</h3>
+      </div>
+      <div class="pills">
+        <span class="pill">Applied Mathematics</span>
+        <span class="pill">Electromagnetism</span>
+        <span class="pill">Mechanics</span>
+        <span class="pill">Control Theory</span>
+        <span class="pill">Wave Optics</span>
+        <span class="pill">Thermodynamics</span>
+        <span class="pill">Signal Processing</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- CONTACT -->
+<div class="divider"></div>
+<section id="contact">
+<div class="section-wrap">
+  <div class="section-header">
+    <div>
+      <div class="label-line">Let's Talk</div>
+      <h2 class="section-title">Get in Touch</h2>
+    </div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-intro reveal">
+      <p>Whether it's an internship, a freelance project, a collaboration, or just a technical conversation — I'm available. Reach out through any of the channels below.</p>
+      <div class="contact-links">
+        <a href="mailto:mohamedelghannouchi@gmail.com" class="contact-link-btn">
+          <div class="clb-icon">✉️</div>
+          <div class="clb-text"><strong>Email</strong><span>mohamedelghannouchi@gmail.com</span></div>
+        </a>
+        <a href="tel:+212 712298827" class="contact-link-btn">
+          <div class="clb-icon">📞</div>
+          <div class="clb-text"><strong>Phone</strong><span>+212 712298827</span></div>
+        </a>
+        <a href="https://www.linkedin.com/in/mohamed-el-ghannouchi-8670503bb/" target="_blank" class="contact-link-btn">
+          <div class="clb-icon">🔗</div>
+          <div class="clb-text"><strong>LinkedIn</strong><span>https://www.linkedin.com/in/mohamed-el-ghannouchi-8670503bb/</span></div>
+        </a>
+        <a href="https://github.com/Simoow2" target="_blank" class="contact-link-btn">
+          <div class="clb-icon">💻</div>
+          <div class="clb-text"><strong>GitHub</strong><span>https://github.com/Simoow2</span></div>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-form reveal" style="transition-delay:.15s">
+      <h3>Send a Message</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" id="f-first" placeholder="John"/>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" id="f-last" placeholder="Doe"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Your Email</label>
+        <input type="email" id="f-email" placeholder="john@example.com"/>
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" id="f-subject" placeholder="Internship, collaboration, project..."/>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea id="f-msg" rows="4" placeholder="Tell me what you have in mind..."></textarea>
+      </div>
+      <button class="btn btn-gold" style="width:100%;justify-content:center" onclick="sendMsg()">Send Message ↗</button>
+      <p id="form-status" style="font-size:.78rem;color:rgba(255,255,255,.4);margin-top:.75rem;text-align:center;min-height:1.2em"></p>
+    </div>
+  </div>
+</div>
+</section>
+
+<footer>
+  <p>Crafted from scratch &nbsp;·&nbsp; © 2026 &nbsp;·&nbsp; Morocco 🇲🇦</p>
+</footer>
+
+<script>
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', scrollY > 20);
+});
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('up'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+// Nav active
+const secs = [...document.querySelectorAll('section[id]')];
+const nls  = [...document.querySelectorAll('.nav-links a')];
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if (scrollY >= s.offsetTop - 120) cur = s.id; });
+  nls.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--navy)' : ''; });
+});
+
+// Photo upload
+function handlePhoto(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    const img = document.getElementById('uploadedPhoto');
+    const ph  = document.getElementById('photoPlaceholder');
+    img.src = ev.target.result;
+    img.style.display = 'block';
+    ph.style.display  = 'none';
+  };
+  r.readAsDataURL(file);
+}
+
+// Contact form → mailto
+function sendMsg() {
+  const first   = document.getElementById('f-first').value.trim();
+  const last    = document.getElementById('f-last').value.trim();
+  const email   = document.getElementById('f-email').value.trim();
+  const subject = document.getElementById('f-subject').value.trim();
+  const msg     = document.getElementById('f-msg').value.trim();
+  const status  = document.getElementById('form-status');
+
+  if (!first || !email || !msg) {
+    status.style.color = '#f87171';
+    status.textContent = 'Please fill in your name, email and message.';
+    return;
+  }
+  const body = `From: ${first} ${last} <${email}>\n\n${msg}`;
+  window.location.href = `mailto:mohamedelghannouchi@gmail.com?subject=${encodeURIComponent(subject||'Portfolio Contact')}&body=${encodeURIComponent(body)}`;
+  status.style.color = 'rgba(201,168,76,.9)';
+  status.textContent = 'Opening your email client...';
+}
+
+// CV download placeholder
+function downloadCV(e) {
+  e.preventDefault();
+  alert('Add your CV link here:\n\nOpen the HTML file → find downloadCV() → replace the alert with:\nwindow.open("YOUR_GOOGLE_DRIVE_LINK", "_blank")');
+}
+</script>
+</body>
+</html>
